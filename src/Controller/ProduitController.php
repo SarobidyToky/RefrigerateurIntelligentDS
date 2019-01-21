@@ -2,14 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Produit;
-use App\Form\ProduitType;
-use App\Repository\ProduitRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 class ProduitController extends AbstractController
 {
@@ -23,9 +18,8 @@ class ProduitController extends AbstractController
      */
     private $em;
 
-    public function __construct(ProduitRepository $repository, ObjectManager $em)
+    public function __construct(ObjectManager $em)
     {
-        $this->repository = $repository;
         $this->em = $em;
     }
 
@@ -35,18 +29,17 @@ class ProduitController extends AbstractController
      */
     public function index(): Response
     {
-        $produit = $this->repository->findAll();
         return $this->render('produit/index.html.twig', [
-            'current_menu' => 'produit',
-            'produits' => $produit
+            'current_menu' => 'produit'
         ]);
     }
-
+/*
     /**
      * @Route("/produit/new", name="produit.new")
      * @param Request $request
      * @return Response
      */
+/*
     public function new(Request $request): Response
     {
         $produit = new Produit();
@@ -72,6 +65,7 @@ class ProduitController extends AbstractController
      * @param Request $request
      * @return Response
      */
+/*
     public function edit(Produit $produit, Request $request): Response
     {
         $form = $this->createForm(ProduitType::class, $produit);
@@ -94,6 +88,7 @@ class ProduitController extends AbstractController
      * @param Produit $produit
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
+/*
     public function delete(Produit $produit, Request $request){
         if($this->isCsrfTokenValid('delete' . $produit->getId(), $request->get('_token'))){
             $this->em->remove($produit);
@@ -106,8 +101,9 @@ class ProduitController extends AbstractController
     /**
      * @Route("/produit/show/{id}", name="produit.show")
      */
+/*
     public function show(Produit $produit){
         return $this->render('produit/show.html.twig');
     }
-
+*/
 }
