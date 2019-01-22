@@ -2,25 +2,31 @@
 
 namespace App\Controller;
 
+use App\Repository\CategorieRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\Routing\Annotation\Route;
 class ProduitController extends AbstractController
 {
     /**
      * @var ProduitRepository
      */
-    private $repository;
+    private $produitRepository;
+
+    /**
+     * @var CategorieRepository
+     */
+    private $categorieRepository;
 
     /**
      * @var ObjectManager
      */
     private $em;
 
-    public function __construct(ObjectManager $em)
+    public function __construct(CategorieRepository $categorieRepository)
     {
-        $this->em = $em;
+        $this->categorieRepository = $categorieRepository;
     }
 
     /**
@@ -29,8 +35,11 @@ class ProduitController extends AbstractController
      */
     public function index(): Response
     {
+        $categorie = $this->categorieRepository->findAll();
+
         return $this->render('produit/index.html.twig', [
-            'current_menu' => 'produit'
+            'current_menu' => 'produit',
+            'categories' => $categorie
         ]);
     }
 /*
