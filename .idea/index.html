@@ -8,28 +8,22 @@
     <div class="container mt-4">
         <h3>Liste des produits</h3>
         <!-- Onglet produits -->
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            {% for categorie in categories %}
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                {% for categorie in categories %}
                 <li class="nav-item">
                     <a class="nav-link" id="home-{{ categorie.nomCategorie }}" data-toggle="tab" href="#{{ categorie.nomCategorie }}" role="tab" aria-controls="{{ categorie.nomCategorie }}" aria-selected="false">{{ categorie.nomCategorie }}</a>
                 </li>
-            {% endfor %}
-        </ul>
+                {% endfor %}
+            </ul>
         <!-- Onglet produits -->
         <table class="table table-striped" id="MyTable" onclick="functionn()">
             <thead>
                 <tr>
                     <th scope="col">Designation</th>
-                    <th scope="col"></th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-            {% for produit in produits %}
-                <tr>
-                    <th scope="row">{{ produit.designation }}</th>
-                    <th scope="row"><a href="{{ path('entree.index') }}"><button href="" class="btn btn-info">Voir</button></a></th>
-                </tr>
-            {% endfor %}
             </tbody>
         </table>
         <div class="text-right">

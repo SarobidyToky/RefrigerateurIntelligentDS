@@ -3,7 +3,10 @@
 
     <div class="container mt-4">
         <h1>Ajouter un produit</h1>
-        {{ include('produit/_form.html.twig', {button: 'Créer'}) }}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary">Enregistrer</button>
+        {{ form_end(form) }}
     </div>
 
 {% endblock %}
