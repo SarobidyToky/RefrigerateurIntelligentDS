@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Produit;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,10 +15,12 @@ class ProduitType extends AbstractType
     {
         $builder
             ->add('designation')
-            ->add('image')
             ->add('categorie', EntityType::class, [
                 'class' => 'App\Entity\Categorie',
                 'choice_label' => 'nomCategorie'
+            ])
+            ->add('imageFile', FileType::class, [
+                'required' => false
             ])
         ;
     }
