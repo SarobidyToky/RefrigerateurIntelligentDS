@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Produit;
 use App\Form\ProduitType;
 use App\Repository\CategorieRepository;
+use App\Repository\EntreeRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,10 +29,16 @@ class ProduitController extends AbstractController
      */
     private $produitRepository;
 
-    public function __construct(CategorieRepository $categorieRepository,ProduitRepository $produitRepository, ObjectManager $em)
+    /**
+     * @var $entreeRepository
+     */
+    private $entreeRepository;
+
+    public function __construct(CategorieRepository $categorieRepository,ProduitRepository $produitRepository,EntreeRepository $entreeRepository, ObjectManager $em)
     {
         $this->categorieRepository = $categorieRepository;
         $this->produitRepository = $produitRepository;
+        $this->entreeRepository = $entreeRepository;
         $this->em = $em;
     }
 
@@ -48,6 +55,24 @@ class ProduitController extends AbstractController
             'controller_name' => 'ProduitController',
             'categories' => $categorie,
             'produits' => $produits
+        ]);
+    }
+
+    //Route entree unique
+
+    /**
+     * @Route("/entree/{id}", name="entree.index")
+     */
+    public function entree($id)
+    {
+        $produits = $this->produitRepository->find($id);
+        $entrees = $this->entreeRepository->findBy([
+           'produit' => $id
+        ]);
+
+        return $this->render('entree/index.html.twig', [
+            'produit' => $produits,
+            'entrees' => $entrees
         ]);
     }
 
@@ -73,6 +98,5 @@ class ProduitController extends AbstractController
         ]);
 
     }
-
 
 }

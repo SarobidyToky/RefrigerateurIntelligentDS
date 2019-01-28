@@ -27,9 +27,9 @@ class Entree
     private $datePeremption;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="entrees")
      */
-    private $createdAt;
+    private $produit;
 
     public function getId(): ?int
     {
@@ -60,14 +60,14 @@ class Entree
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getProduit(): ?Produit
     {
-        return $this->createdAt;
+        return $this->produit;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setProduit(?Produit $produit): self
     {
-        $this->createdAt = $createdAt;
+        $this->produit = $produit;
 
         return $this;
     }

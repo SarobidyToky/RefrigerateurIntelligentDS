@@ -5,8 +5,38 @@
 {% block body %}
 
     <div class="jumbotron">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        <div class="row">
+            <div class="col-9">
+                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            </div>
+            {% if produit.filename %}
+                <div class="col-3">
+                    <img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="card-img-right" style="width: 25%">
+                </div>
+            {% endif %}
+        </div>
     </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Quantité</th>
+                <th>Date de Péremption</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entree in entrees %}
+                <tr>
+                    <th>{{ entree.id }}</th>
+                    <th>{{ entree.quantiteEntree }}</th>
+                    <th>{{ entree.datePeremption|date("d/m/Y")  }}</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-warning" href="{{ path('entree.new', {id:produit.id} ) }}">Ajouter une entrée</a>
 
 {% endblock %}
