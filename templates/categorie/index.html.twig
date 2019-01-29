@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}
+    <h1>Categorie</h1>
+
+    <a href="{{ path('categorie.new') }}"> <button class="btn btn-primary">Nouveau</button></a>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Nom Categorie</td>
+            <td>Action</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for categorie in listeCategorie %}
+            <tr>
+                <td>{{ categorie.id }}</td>
+                <td>{{ categorie.nomCategorie }}</td>
+                <td>
+                    <a href="{{ path('categorie.show', {'id': categorie.id}) }}"><button class="btn btn-primary">Afficher</button></a>
+
+                    <a href="{{ path('categorie.edit', {'id': categorie.id}) }}"> <button class="btn btn-secondary">Modifier</button></a>
+
+                    {{ include('categorie/delete.html.twig') }}
+
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
