@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Entity\Sortie;
 use App\Form\ProduitType;
+use App\Form\SortieType;
 use App\Repository\CategorieRepository;
 use App\Repository\EntreeRepository;
 use App\Repository\ProduitRepository;
@@ -73,6 +75,20 @@ class ProduitController extends AbstractController
         return $this->render('entree/index.html.twig', [
             'produit' => $produits,
             'entrees' => $entrees
+        ]);
+    }
+
+    //Route sortie unique
+    /**
+     * @Route("/sortie/add", name="sortie.add")
+     */
+    public function sortie()
+    {
+        $sortie = new Sortie();
+        $form = $this->createForm(SortieType::class, $sortie);
+
+        return $this->render('sortie/add.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
