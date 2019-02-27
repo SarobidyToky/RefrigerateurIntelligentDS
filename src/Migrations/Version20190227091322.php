@@ -8,17 +8,14 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190225094059 extends AbstractMigration
+final class Version20190227091322 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE liste_course ADD produits_id INT NOT NULL');
-        $this->addSql('ALTER TABLE liste_course ADD CONSTRAINT FK_27EF1A82CD11A2CF FOREIGN KEY (produits_id) REFERENCES produit (id)');
-        $this->addSql('CREATE INDEX IDX_27EF1A82CD11A2CF ON liste_course (produits_id)');
-        $this->addSql('ALTER TABLE produit DROP liste_course_id');
+        $this->addSql('DROP TABLE sortie');
     }
 
     public function down(Schema $schema) : void
@@ -26,9 +23,7 @@ final class Version20190225094059 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE liste_course DROP FOREIGN KEY FK_27EF1A82CD11A2CF');
-        $this->addSql('DROP INDEX IDX_27EF1A82CD11A2CF ON liste_course');
-        $this->addSql('ALTER TABLE liste_course DROP produits_id');
-        $this->addSql('ALTER TABLE produit ADD liste_course_id INT NOT NULL');
+        $this->addSql('CREATE TABLE sortie (id INT AUTO_INCREMENT NOT NULL, produit_id INT NOT NULL, quantite_sortie INT NOT NULL, INDEX IDX_3C3FD3F2F347EFB (produit_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
+        $this->addSql('ALTER TABLE sortie ADD CONSTRAINT FK_3C3FD3F2F347EFB FOREIGN KEY (produit_id) REFERENCES produit (id)');
     }
 }
