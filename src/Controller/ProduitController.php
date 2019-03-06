@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Element;
 use App\Entity\Produit;
 use App\Entity\Sortie;
 use App\Form\ProduitType;
@@ -51,7 +52,6 @@ class ProduitController extends AbstractController
     {
         $categorie = $this->categorieRepository->findAll();
 
-
         $produits = $this->produitRepository->findAll();
         return $this->render('produit/index.html.twig', [
             'controller_name' => 'ProduitController',
@@ -79,13 +79,29 @@ class ProduitController extends AbstractController
     }
 
     //Route sortie unique
+
     /**
      * @Route("/sortie/add", name="sortie.add")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function sortie()
+    public function sortie(Request $request)
     {
         $sortie = new Sortie();
+        $elements = new Element();
+
+        $sortie->addElement($elements);
+
         $form = $this->createForm(SortieType::class, $sortie);
+
+        $form->handleRequest($request);
+
+        //Récupération quantité demandé
+        $qteDemande = 50; //$request->request->get('quantiteDemande');
+
+        if ($form->isSubmitted()){
+            dump($qteDemande);
+        }
 
         return $this->render('sortie/add.html.twig', [
             'form' => $form->createView()

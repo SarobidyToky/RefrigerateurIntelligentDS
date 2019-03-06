@@ -27,7 +27,7 @@
             {% for produit in produits %}
                 <tr>
                     <th scope="row">{{ produit.designation }}</th>
-                    <th scope="row"><a href="{{ path('entree.index', {id:produit.id}) }}"><button href="" class="btn btn-info">Voir</button></a></th>
+                    <th scope="row"><a href="{{ path('entree.index', {id:produit.id}) }}"><button class="btn btn-info">Voir</button></a></th>
                 </tr>
             {% endfor %}
             </tbody>

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Sortie !
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+        <div class="col-sm-8 col-sm-offset-2" id="elements_list" data-prototype="{{ form_widget(form.elements.vars.prototype)|escape('html_attr') }}">
+            {% for row in form.elements %}
+                <div class="panel panel-warning">
+                    <div class="panel-heading"><h5>Effectuez une sortie</h5></div>
+                    <div class="panel-body">
+                        {{ form_row(row) }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ asset('build/slideSortie.js') }}"></script>
+{% endblock %}

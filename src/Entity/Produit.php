@@ -60,10 +60,16 @@ class Produit
      */
     private $listeCourses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Element", mappedBy="produit")
+     */
+    private $elements;
+
     public function __construct()
     {
         $this->entrees = new ArrayCollection();
         $this->listeCourses = new ArrayCollection();
+        $this->elements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -209,5 +215,40 @@ return $this;
         return $this;
     }
 
+    /**
+     * @return Collection|Element[]
+     */
+    public function getElements(): Collection
+    {
+        return $this->elements;
+    }
+
+    public function addElement(Element $element): self
+    {
+        if (!$this->elements->contains($element)) {
+            $this->elements[] = $element;
+            $element->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeElement(Element $element): self
+    {
+        if ($this->elements->contains($element)) {
+            $this->elements->removeElement($element);
+            // set the owning side to null (unless already changed)
+            if ($element->getProduit() === $this) {
+                $element->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->designation;
+    }
 
 }
