@@ -22,7 +22,7 @@ class Entree
     private $quantiteEntree;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $datePeremption;
 

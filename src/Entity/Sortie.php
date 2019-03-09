@@ -19,7 +19,7 @@ class Sortie
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Element", mappedBy="sortie")
+     * @ORM\OneToMany(targetEntity="App\Entity\Element", mappedBy="sortie", cascade={"persist", "remove"})
      */
     private $elements;
 

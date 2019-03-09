@@ -19,6 +19,40 @@ class EntreeRepository extends ServiceEntityRepository
         parent::__construct($registry, Entree::class);
     }
 
+    public function sumProduit($id){
+        $qb = $this->createQueryBuilder('e')
+            ->select("SUM(e.quantiteEntree) as qt")
+            ->where("e.produit = :id")
+            ->setParameter('id' , $id);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function recuperationPremierLigne($id, $offset, $limit){
+        $qb = $this->createQueryBuilder('e')
+            ->select("e")
+            ->where('e.produit = :id')
+            ->setParameter("id", $id)
+            ->orderBy("e.datePeremption", 'ASC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+        ;
+
+
+        return $qb->getQuery()->getSingleResult();
+
+    }
+
+    public function misAJourTable($restant){
+        $qb = $this->createQueryBuilder('e')
+            ->update('\App\Entity\Entree', 'e')
+            ->set('e.quantiteEntree', '?1')
+            ->setParameter('1', $restant)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Entree[] Returns an array of Entree objects
     //  */

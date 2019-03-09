@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SortieController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Liste des sorties !!</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Numero sortie</th>
+                <th>Produit</th>
+                <th>Quantité sortie</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for element in elements %}
+                <tr>
+                    <th>{{ element.sortie.id }}</th>
+                    <th>{{ element.produit.designation }}</th>
+                    <th>{{ element.quantiteSortie  }}</th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a class="btn btn-warning" href="{{ path('sortie.add') }}">Effectuer des sorties</a>
+    </div>
+{% endblock %}
